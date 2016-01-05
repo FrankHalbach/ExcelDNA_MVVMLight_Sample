@@ -21,7 +21,6 @@ namespace MvvmLightExcelDnaDemo
             }
             catch (Exception e)
             {
-
                 LogDisplay.WriteLine(e.ToString());
             }
            
@@ -36,7 +35,7 @@ namespace MvvmLightExcelDnaDemo
         /// <summary>
         /// Opens new MainWindow in seperate Thread or focus open MainWindow
         /// </summary>
-        public static void OpenMainForm()
+        static void OpenMainForm()
         {            
             if (_threadMainWindow == null || !_threadMainWindow.IsAlive)
             {

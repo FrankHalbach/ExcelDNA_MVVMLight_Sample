@@ -20,7 +20,7 @@ namespace MvvmLightExcelDnaDemo.ViewModels
         /// </summary>
         public MainWindowViewModel()
         {
-            WorkSpaces = new ObservableCollection<WorkSpaceViewModel>();
+            WorkSpace = new ObservableCollection<WorkSpaceViewModel>();
 
 
             AddViewACommand = new RelayCommand(() =>
@@ -50,7 +50,7 @@ namespace MvvmLightExcelDnaDemo.ViewModels
         }
 
 
-        public ObservableCollection<WorkSpaceViewModel> WorkSpaces { get; private set; }
+        public ObservableCollection<WorkSpaceViewModel> WorkSpace { get; private set; }
 
 
         public ICommand AddViewACommand { get; private set; }
@@ -60,12 +60,12 @@ namespace MvvmLightExcelDnaDemo.ViewModels
 
         void AddWorkSpaceItem(WorkSpaceViewModel w)
         {
-            WorkSpaces.Add(w);
+            WorkSpace.Add(w);
         }
 
         void RemoveWorkSpaceItem(WorkSpaceViewModel w)
         {
-            WorkSpaces.Remove(w);
+            WorkSpace.Remove(w);
 
         }
     }
