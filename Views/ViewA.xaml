@@ -13,6 +13,7 @@
         <StackPanel>
         <TextBlock Text="{Binding MyName}"/>
             <TextBlock Text="{Binding GUID,StringFormat='GUID: {0}'}"/>
+            <TextBox Name="myText" Text="{Binding myText, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
     </Grid>
     

@@ -8,17 +8,20 @@ namespace MvvmLightExcelDnaDemo.Views
     /// </summary>
     public partial class MainWindow : Window
     {
-        public ViewModelLocator Locator;// = new ViewModelLocator();
+        public ViewModelLocator Locator;
 
-        public MainWindow()
+        public MainWindow(ViewModelLocator locator)
         {
             InitializeComponent();
 
-            Locator = new ViewModelLocator();
+            //Locator = new ViewModelLocator();
+            this.Locator = locator;
 
             DataContext = Locator.Main;
 
-            Closing += (s, e) => ViewModelLocator.Cleanup();          
+            Closing += (s, e) => ViewModelLocator.Cleanup();
+
+            MessageBox.Show("I run on Thread: "+System.Threading.Thread.CurrentThread.ManagedThreadId.ToString());
         }
 
 

@@ -20,5 +20,6 @@
         }
 
        public  string MyName { get; set; }
+       public string myText { get; set; }
     }
 }

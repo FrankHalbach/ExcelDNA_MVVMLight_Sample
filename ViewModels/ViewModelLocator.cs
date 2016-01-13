@@ -2,6 +2,8 @@
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Practices.ServiceLocation;
+using MvvmLightExcelDnaDemo.Views;
+using System.Windows.Forms;
 
 namespace MvvmLightExcelDnaDemo.ViewModels
 {
@@ -38,6 +40,24 @@ namespace MvvmLightExcelDnaDemo.ViewModels
             }
         }
 
+        static MainWindow _window;
+
+        public void OpenWindow()
+        {
+            if(_window==null ||_window.IsLoaded==false)
+            { 
+                _window = new MainWindow(this);        
+                _window.Show();
+            }
+
+            _window.Focus();
+
+
+          
+          
+
+        }
+
 
 
 
@@ -47,17 +67,11 @@ namespace MvvmLightExcelDnaDemo.ViewModels
         /// </summary>
         public static void Cleanup()
         {
-            // This will rest SimpleIOC and unregister the messenger. 
-            // If you don't reset when you close the form you will run into cross thread issues with the OberservableCollection when you re-open the MainWindow a second time since it will open in a new thread.
-            // If you like to preserve your viewmodels when the form is closed you will either need to hide the form instead of closing it or implement
-            // a thread safe OberservableCollection, eg: https://github.com/burningmime/curves/blob/master/burningmime.curves.sample/src/util/wpf/AsyncObservableCollection.cs
-            //
+           // This will rest SimpleIOC and unregister the messenger.             
 
-            SimpleIoc.Default.Reset();
+           // SimpleIoc.Default.Reset();            
 
-
-            //Unregistering the messenger is required in order to avoid double registration uppon creatation of a new window.
-            //Messenger.Reset();
+           // Messenger.Reset();
 
         }
     }

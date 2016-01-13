@@ -6,10 +6,13 @@ using ExcelDna.Integration;
 using System.Threading;
 using MvvmLightExcelDnaDemo.Views;
 using ExcelDna.Logging;
+using MvvmLightExcelDnaDemo.ViewModels;
+using System.Windows;
+using System.Windows.Threading;
 
 namespace MvvmLightExcelDnaDemo
 {
-    public class CreateMenu 
+    public class CreateMenu
     {
 
         [ExcelCommand(MenuName = "MVVMForm", MenuText = "OpenMVVMForm")]
@@ -26,41 +29,50 @@ namespace MvvmLightExcelDnaDemo
            
         }
 
+        
 
 
-
-        static Thread _threadMainWindow;
-        static MainWindow _mainWindow;
+        static Thread _threadMainWindow;        
+        static ViewModelLocator _viewModelLocator;
+        protected static Dispatcher _dispatcher;
 
         /// <summary>
-        /// Opens new MainWindow in seperate Thread or focus open MainWindow
+        /// Opens new ViewModelLocator in seperate Thread 
         /// </summary>
         static void OpenMainForm()
-        {            
+        {
+            
             if (_threadMainWindow == null || !_threadMainWindow.IsAlive)
             {
                 _threadMainWindow = new Thread(
                     () => {
-                        _mainWindow = new MainWindow();
-                        _mainWindow.ShowDialog();
-                        _mainWindow.Closed += (sender1, e1) => _mainWindow.Dispatcher.InvokeShutdown();
+
+                        _viewModelLocator = new ViewModelLocator();                        
+                        
+                        _viewModelLocator.OpenWindow();
+
+                        _dispatcher = Dispatcher.CurrentDispatcher;
+
+                        Dispatcher.Run();  
                     }
                                                );
 
                 _threadMainWindow.SetApartmentState(ApartmentState.STA);
-                _threadMainWindow.Start();
+                
+                _threadMainWindow.Start();                
 
             }
             else
-            {
-                _mainWindow.Dispatcher.Invoke(new System.Action(() =>
-                 {
-                     _mainWindow.Activate();
-                     _mainWindow.WindowState = System.Windows.WindowState.Normal;
-                 }
-                  ));
+            {                                    
+                    _dispatcher.Invoke( new Action(() => {
+                    
+                        _viewModelLocator.OpenWindow();
+                    }
+                                                   )
+                                    );
 
             }
         }
+
     }
 }
