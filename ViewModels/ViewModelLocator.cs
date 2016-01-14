@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Practices.ServiceLocation;
 using MvvmLightExcelDnaDemo.Views;
+using System.Windows;
 using System.Windows.Forms;
 
 namespace MvvmLightExcelDnaDemo.ViewModels
@@ -50,7 +51,8 @@ namespace MvvmLightExcelDnaDemo.ViewModels
                 _window.Show();
             }
 
-            _window.Focus();
+            _window.Activate();
+          
 
 
           
