@@ -9,70 +9,33 @@ using ExcelDna.Logging;
 using MvvmLightExcelDnaDemo.ViewModels;
 using System.Windows;
 using System.Windows.Threading;
+using System.Runtime.InteropServices;
 
 namespace MvvmLightExcelDnaDemo
 {
-    public class CreateMenu
+    public class CreateMenu : IExcelAddIn
     {
 
+      internal static  WindowStarter _windowStarter = new WindowStarter();
+
         [ExcelCommand(MenuName = "MVVMForm", MenuText = "OpenMVVMForm")]
-        public static void LoadForm()  
+        public static void LoadForm()
         {
             try
             {
-                OpenMainForm();
+                _windowStarter.ShowSingeltonWindow<MainWindow,MainWindowViewModel>();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                LogDisplay.WriteLine(e.ToString());
+                LogDisplay.WriteLine(ex.ToString());
             }
-           
+
         }
 
-        
 
+        public void AutoOpen() { }
 
-        static Thread _threadMainWindow;        
-        static ViewModelLocator _viewModelLocator;
-        protected static Dispatcher _dispatcher;
-
-        /// <summary>
-        /// Opens new ViewModelLocator in seperate Thread 
-        /// </summary>
-        static void OpenMainForm()
-        {
+        public void AutoClose() { }
             
-            if (_threadMainWindow == null || !_threadMainWindow.IsAlive)
-            {
-                _threadMainWindow = new Thread(
-                    () => {
-
-                        _viewModelLocator = new ViewModelLocator();                        
-                        
-                        _viewModelLocator.OpenWindow();
-
-                        _dispatcher = Dispatcher.CurrentDispatcher;
-
-                        Dispatcher.Run();  
-                    }
-                                               );
-
-                _threadMainWindow.SetApartmentState(ApartmentState.STA);
-                
-                _threadMainWindow.Start();                
-
-            }
-            else
-            {                                    
-                    _dispatcher.Invoke( new Action(() => {
-                    
-                        _viewModelLocator.OpenWindow();
-                    }
-                                                   )
-                                    );
-
-            }
-        }
-
     }
 }

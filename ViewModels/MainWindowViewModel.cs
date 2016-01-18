@@ -41,7 +41,7 @@ namespace MvvmLightExcelDnaDemo.ViewModels
             }
                 );
 
-            // If don't need to register the viewmodel.
+            // If you don't need to keep track of vm, you don't need to register.
             //AddViewBCommand = new RelayCommand(() => AddWorkSpaceItem(new ViewBViewModel()));
 
             //Listen for RemoveWorkSpaceItem

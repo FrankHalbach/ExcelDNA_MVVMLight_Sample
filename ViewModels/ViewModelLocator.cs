@@ -19,48 +19,16 @@ namespace MvvmLightExcelDnaDemo.ViewModels
     {
         static ViewModelLocator()
         {
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);            
-        }
-
-        /// <summary>
-        /// Gets the Main property.
-        /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
-            "CA1822:MarkMembersAsStatic",
-            Justification = "This non-static member is needed for data binding purposes.")]
-
-        public MainWindowViewModel Main
-        {
-            get
-            {
-                if(!SimpleIoc.Default.IsRegistered<MainWindowViewModel>())
-                    SimpleIoc.Default.Register<MainWindowViewModel>();
-                
-                    return ServiceLocator.Current.GetInstance<MainWindowViewModel>();
-                
-            }
-        }
-
-        static MainWindow _window;
-
-        public void OpenWindow()
-        {
-            if(_window==null ||_window.IsLoaded==false)
-            { 
-                _window = new MainWindow(this);        
-                _window.Show();
-            }
-
-            _window.Activate();
-          
-
-
-          
-          
+            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+        
+            //register ViewModels here
+            SimpleIoc.Default.Register<MainWindowViewModel>();
+            
 
         }
 
-
+             
+     
 
 
 
